@@ -31,7 +31,7 @@ export default function App() {
     { title: "Hair Styling & Texturizing", desc: "Permanent Straightening, Smoothening, Crimping, and premium Blow Dry styling." },
     { title: "Hair Therapy & Spa", desc: "Keratin Spa, Repairing Creambaths, Hot Oil Massages, and Anti-dandruff treatments." },
     { title: "Bridal & Make-up Studio", desc: "HD Pro Bridal packages, Muhurtham looks, Saree Draping, and Dance styling." },
-    { title: "Specialty Services", desc: "Traditional Mehandi designs, Ear/Nose Piercing, and professional Warts Removal." }
+    { title: "Specialty Services", desc: "Traditional Mehndi designs, Ear/Nose Piercing, and professional Warts Removal." }
   ];
 
   return (
@@ -55,6 +55,7 @@ export default function App() {
               initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }}
               src={selectedImage} 
               className="max-h-full max-w-full rounded-lg shadow-2xl border border-[#D4AF37]/30"
+              alt="Gallery Preview"
             />
             <div className="absolute inset-0 z-[505] bg-transparent" />
           </motion.div>
@@ -110,7 +111,7 @@ export default function App() {
                <button onClick={() => setPopupInfo({ type: 'phone', label: 'Call Us', value: '99629 79040' })} className="text-[#D4AF37] hover:scale-110 transition-transform border-r border-white/20 pr-3">
                   <Phone size={18} />
                </button>
-               <button onClick={() => setPopupInfo({ type: 'phone', label: 'Call Us', value: '99629 79040' })} className="hover:text-[#D4AF37] transition-all font-black tracking-widest">BOOKING</button>
+               <button onClick={() => setPopupInfo({ type: 'phone', label: 'Call Us', value: '99629 79040' })} className="hover:text-[#D4AF37] transition-all font-black tracking-widest text-white">BOOKING</button>
             </div>
           </div>
         </div>
@@ -120,7 +121,7 @@ export default function App() {
         </button>
       </nav>
 
-      {/* --- HERO SECTION (NO SPACE BELOW NAV) --- */}
+      {/* --- HERO SECTION --- */}
       <header className="relative w-full h-[85vh] md:h-[90vh] bg-black overflow-hidden flex flex-col mt-[68px]">
         <div className="grid grid-cols-1 md:grid-cols-3 h-full w-full gap-[2px]">
           {galleryData.heroGrid.map((url, idx) => (
@@ -152,28 +153,19 @@ export default function App() {
         </div>
       </header>
 
-      {/* --- SERVICES SECTION WITH EXTRA EFFECTS --- */}
+      {/* --- SERVICES SECTION --- */}
       <section id="services" className="px-6 py-28 bg-[#0A0A0A] relative border-y border-white/5 text-center overflow-hidden">
-        {/* Decorative Background Blur */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[#D4AF37]/5 blur-[120px] pointer-events-none" />
-        
         <div className="max-w-7xl mx-auto relative z-10">
           <h3 className="text-3xl md:text-4xl font-bold uppercase tracking-[0.3em] text-[#D4AF37] flex items-center justify-center gap-4">
             <Sparkles color="#D4AF37" size={28} /> Our Services
           </h3>
           <div className="h-1 w-20 bg-[#D4AF37] mx-auto mt-6 rounded-full" />
-          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
             {services.map((service, idx) => (
               <motion.div 
                 key={idx} 
-                whileHover={{ 
-                    y: -15, 
-                    rotateX: 5, 
-                    rotateY: -5,
-                    boxShadow: "0 20px 40px rgba(212,175,55,0.15)"
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
+                whileHover={{ y: -15, boxShadow: "0 20px 40px rgba(212,175,55,0.15)" }}
                 className="bg-zinc-900/40 backdrop-blur-md border border-white/10 p-8 rounded-2xl group transition-all text-left flex flex-col justify-between hover:border-[#D4AF37]/50"
               >
                 <div>
@@ -225,8 +217,9 @@ export default function App() {
       {/* --- FOOTER --- */}
       <footer id="location" className="px-8 py-24 border-t border-white/10 bg-black text-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20 text-center md:text-left">
+          
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-[#D4AF37] font-bold uppercase tracking-widest text-xs mb-8">Review Us</h4>
+            <h4 className="text-[#D4AF37] font-bold uppercase tracking-widest text-xs mb-8">Review Us on Google</h4>
             <div className="bg-white p-3 rounded-lg mb-6 inline-block">
                <img src="/images/qr/qr.png" alt="QR" className="w-28 h-28 object-contain" />
             </div>
@@ -235,7 +228,16 @@ export default function App() {
 
           <div className="flex flex-col items-center border-y md:border-y-0 md:border-x border-white/5 py-16 md:py-0">
             <h4 className="text-[#D4AF37] font-bold uppercase tracking-widest text-xs mb-10 text-center">Contact Information</h4>
-            <button onClick={() => setPopupInfo({ type: 'phone', label: 'Call for Appointment', value: '99629 79040' })} className="text-4xl font-bold hover:text-[#D4AF37] transition-colors mb-8 italic tracking-tighter cursor-pointer text-white">99629 79040</button>
+            
+            {/* Added Name Selvi */}
+            <span className="text-[#D4AF37] font-serif text-2xl italic mb-2 tracking-wide">Selvi</span>
+            
+            <button 
+              onClick={() => setPopupInfo({ type: 'phone', label: 'Call for Appointment', value: '99629 79040' })} 
+              className="text-4xl font-bold hover:text-[#D4AF37] transition-colors mb-8 italic tracking-tighter cursor-pointer text-white"
+            >
+              99629 79040
+            </button>
             <div className="flex gap-10">
               <a href="https://www.instagram.com/selviselvakumar_mua/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-all"><Instagram color="#D4AF37" size={32}/></a>
               <button onClick={() => setPopupInfo({ type: 'phone', label: 'Direct Call', value: '99629 79040' })} className="hover:scale-110 transition-all cursor-pointer"><Phone color="#D4AF37" size={32}/></button>
