@@ -91,13 +91,14 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* --- NAVBAR --- */}
+      {/* --- NAVBAR & MOBILE MENU --- */}
       <nav className="fixed top-0 w-full z-[100] bg-[#8B0000] border-b border-white/10 px-6 py-4 flex justify-between items-center shadow-2xl">
         <div className="flex flex-col text-left">
           <h1 className="text-xl font-semibold tracking-wide text-white">HI-TECH</h1>
           <span className="text-[10px] tracking-[0.3em] uppercase font-bold text-[#D4AF37]">Bridal Studio and Academy</span>
         </div>
         
+        {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 text-[10px] uppercase tracking-widest font-bold items-center text-white">
           <a href="#services" className="hover:text-[#D4AF37] transition-colors">Services</a>
           <a href="#gallery" className="hover:text-[#D4AF37] transition-colors">Portfolio</a>
@@ -116,9 +117,39 @@ export default function App() {
           </div>
         </div>
 
-        <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        {/* Hamburger Button */}
+        <button className="md:hidden text-white z-[110] p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-0 bg-[#8B0000] z-[105] flex flex-col items-center justify-center gap-10 md:hidden"
+            >
+              <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold tracking-[0.2em] text-white hover:text-[#D4AF37] transition-colors">SERVICES</a>
+              <a href="#gallery" onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold tracking-[0.2em] text-white hover:text-[#D4AF37] transition-colors">PORTFOLIO</a>
+              <a href="#location" onClick={() => setIsMenuOpen(false)} className="text-3xl font-bold tracking-[0.2em] text-white hover:text-[#D4AF37] transition-colors">LOCATION</a>
+              
+              <div className="flex gap-12 mt-4">
+                <a href="https://www.instagram.com/selviselvakumar_mua/" target="_blank" rel="noreferrer" className="text-[#D4AF37] scale-150"><Instagram size={24} /></a>
+                <button onClick={() => { setPopupInfo({ type: 'phone', label: 'Call Us', value: '99629 79040' }); setIsMenuOpen(false); }} className="text-[#D4AF37] scale-150"><Phone size={24} /></button>
+              </div>
+
+              <button 
+                onClick={() => { setPopupInfo({ type: 'phone', label: 'Call Us', value: '99629 79040' }); setIsMenuOpen(false); }}
+                className="mt-8 px-12 py-5 bg-[#D4AF37] text-black font-black rounded-full tracking-[0.2em] shadow-2xl active:scale-95 transition-transform"
+              >
+                BOOK NOW
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* --- HERO SECTION --- */}
@@ -132,6 +163,7 @@ export default function App() {
                 transition={{ duration: 1, ease: "easeOut" }}
                 src={url} 
                 className="w-full h-full object-cover object-top md:object-[center_20%] opacity-60 group-hover:opacity-100 transition-all duration-700" 
+                alt="Hero"
               />
               <div className="absolute inset-0 z-10 bg-transparent" />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-[5]" />
@@ -141,14 +173,12 @@ export default function App() {
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-none z-20">
           <h2 className="text-5xl md:text-8xl font-serif mb-6 drop-shadow-2xl text-white">Artistry in <br/><span className="italic font-light">Excellence</span></h2>
           <div className="pointer-events-auto">
-            <a 
-              href="https://www.instagram.com/selviselvakumar_mua/" 
-              target="_blank" 
-              rel="noreferrer"
+            <button 
+              onClick={() => setPopupInfo({ type: 'phone', label: 'Call Us', value: '99629 79040' })} 
               className="px-10 py-5 bg-[#D4AF37] text-black rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform inline-block shadow-2xl"
             >
               Book Appointment
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -191,7 +221,7 @@ export default function App() {
         <h3 className="text-2xl font-semibold mb-10 text-center uppercase tracking-widest text-[#D4AF37]">Our Portfolio</h3>
         <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-12 border-b border-white/10 pb-4 overflow-x-auto no-scrollbar whitespace-nowrap">
           {Object.keys(galleryData).filter(k => k !== 'heroGrid').map((tab) => (
-            <button key={tab} onClick={() => setActiveTab(tab)} className={`text-[10px] uppercase tracking-widest transition-all ${activeTab === tab ? 'text-[#D4AF37] font-bold border-b border-[#D4AF37]' : 'text-gray-500 hover:text-white'}`}>
+            <button key={tab} onClick={() => setActiveTab(tab)} className={`text-[10px] uppercase tracking-widest transition-all px-2 py-1 ${activeTab === tab ? 'text-[#D4AF37] font-bold border-b-2 border-[#D4AF37]' : 'text-gray-500 hover:text-white'}`}>
               {tab === 'magicMakeovers' ? 'Makeovers' : tab}
             </button>
           ))}
@@ -205,7 +235,7 @@ export default function App() {
                 className="overflow-hidden rounded-sm border border-white/5 aspect-[4/5] bg-zinc-900 touch-manipulation relative group cursor-zoom-in"
                 onClick={() => setSelectedImage(src)}
               >
-                <img src={src} className="w-full h-full object-cover object-top transition duration-700" loading="lazy" />
+                <img src={src} alt="Portfolio" className="w-full h-full object-cover object-top transition duration-700" loading="lazy" />
                 <div className="absolute inset-0 z-10 bg-transparent" />
                 <div className="absolute inset-0 bg-[#D4AF37]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               </motion.div>
@@ -228,8 +258,6 @@ export default function App() {
 
           <div className="flex flex-col items-center border-y md:border-y-0 md:border-x border-white/5 py-16 md:py-0">
             <h4 className="text-[#D4AF37] font-bold uppercase tracking-widest text-xs mb-10 text-center">Contact Information</h4>
-            
-            {/* Added Name Selvi */}
             <span className="text-[#D4AF37] font-serif text-2xl italic mb-2 tracking-wide">Selvi</span>
             
             <button 
@@ -252,7 +280,11 @@ export default function App() {
               <p className="text-gray-400">Thavalakuppam, Puducherry - 605 007.</p>
             </div>
             <div className="w-full h-52 rounded-2xl overflow-hidden border-2 border-white/5 shadow-2xl relative">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3905.02!2d79.8020!3d11.8790!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDUyJzQ0LjQiTiA3OcKwNDgnMDcuMiJF!5e0!3m2!1sen!2sin!4v1700000000000" width="100%" height="100%" style={{border:0}} allowFullScreen="" loading="lazy"></iframe>
+              <iframe 
+                title="Google Maps Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3904.571447660238!2d79.8000!3d11.8800!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDUyJzQ4LjAiTiA3OcKwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1700000000000" 
+                width="100%" height="100%" style={{border:0}} allowFullScreen="" loading="lazy"
+              ></iframe>
               <div className="absolute inset-0 bg-transparent z-10" onContextMenu={(e) => e.preventDefault()}/>
             </div>
           </div>
