@@ -8,7 +8,7 @@ const generateImages = (folder, prefix, count, extensions = {}) => {
 
 export const galleryData = {
   heroGrid: [
-    "/images/single/p (1).png",
+    "/images/single/p (2).png",
     "/images/single/p (42).png",
     "/images/single/p (12).png"
   ],
